@@ -1,6 +1,12 @@
 const cloud = require('wx-server-sdk')
-cloud.init()
 exports.main = async (event, context) => {
+  // 判断环境
+  if (!event.env) return { errCode: -1, errMsg: '环境id为空' }
+  cloud.init({
+    env: event.env,
+    traceUser: true
+  })
+  const db = cloud.database();
   try {
     const result = await cloud.openapi.wxacode.getUnlimited({
       scene: event.scene,

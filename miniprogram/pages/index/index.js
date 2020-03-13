@@ -1,4 +1,4 @@
-import { cloud as CF} from '../../utils/cloudFunction.js'
+import { cloud as CF} from '../../utils/cloudFunctionPromise.js'
 Page({
   data: {
     avatarUrl: './user-unlogin.png',
@@ -39,9 +39,12 @@ Page({
   },
 
   onLoad: function (query) {
+    CF.insert("test", {
+      name: "haha"
+    }).then(e => {
+      console.log(e)
+    })
     console.log(query)
-
-
     // 获取用户信息
     wx.getSetting({
       success: res => {
